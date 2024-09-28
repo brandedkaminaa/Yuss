@@ -43,7 +43,6 @@ function sendMessage(e) {
 // Fetch chat messages
 const fetchChat = db.ref("messages/");
 const messageLimit = 10; // Limit for the number of messages to display
-const messagesRef = db.ref("messages/");
 
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
@@ -61,7 +60,7 @@ fetchChat.on("child_added", function (snapshot) {
   document.getElementById("messages").innerHTML += messageHTML;
 
   // Check the number of messages and delete the oldest if necessary
-  messagesRef.once("value", (snapshot) => {
+  fetchChat.once("value", (snapshot) => {
     const messageCount = snapshot.numChildren(); // Get the total number of messages
 
     if (messageCount > messageLimit) {
