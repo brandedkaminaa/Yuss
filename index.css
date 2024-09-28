@@ -66,6 +66,13 @@ button {
   color: #6929ca;
 }
 
+.verified-icon {
+  width: 20px; /* Set the desired width */
+  height: 20px; /* Set the desired height */
+  vertical-align: middle; /* Align the image with the text */
+  margin-left: 5px; /* Space between username and image */
+}
+
 #clear-history-btn {
   background-color: #ff5c5c;
   color: white;
