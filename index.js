@@ -54,8 +54,14 @@ function clearChatHistory() {
             })
             .catch((error) => {
                 console.error("Error clearing chat history: ", error);
-  });
+            });
+    }
 }
+
+// Fetch messages from Firebase and display them
+messagesRef.on('child_added', function (snapshot) {
+    displayMessage(snapshot); // Pass the snapshot directly
+});
                    
 // Fetch chat messages
 // Fetch chat messages
