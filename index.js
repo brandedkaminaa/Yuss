@@ -45,10 +45,15 @@ const fetchChat = db.ref("messages/");
 
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  const message = `<li class=${
-    username === messages.username ? "sent" : "receive"
-  }><span>${messages.username}: </span>${messages.message}</li>`;
-
+  const verifiedImagePath = "path/to/your/verified-image.png"; // Replace with your image path
+  const message = `<li class=${username === messages.username ? "sent" : "receive"}>
+                    <span>
+                      ${messages.username}
+                      <img src="${verifiedImagePath}" alt="Verified" class="verified-icon" />
+                    </span>: ${messages.message}
+                  </li>`;
+  
   // Append the message to the page
   document.getElementById("messages").innerHTML += message;
 });
+
