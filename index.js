@@ -61,10 +61,9 @@ function detectYouTubeLink(message) {
 db.ref("messages").on("child_added", function (snapshot) {
   const messages = snapshot.val();
   const verifiedImagePath = "https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/images (31).jpeg"; // Verified image
-
-  let messageContent = `<span>${messages.username}</span>: ${messages.message}`;
-  
-  // Check if message contains YouTube link and append thumbnail if found
+// Create a message content without username let 
+  messageContent = messages.message;  
+// Check if message contains YouTube link and append thumbnail if found
   const youtubeThumbnail = detectYouTubeLink(messages.message);
   if (youtubeThumbnail) {
     messageContent += youtubeThumbnail;
