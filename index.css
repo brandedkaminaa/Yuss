@@ -1,97 +1,63 @@
 body {
-  background-image: url('https://raw.githubusercontent.com/brandedkaminaa/hi/main/girl-2013447_1280.webp'); /* Add your image URL here */
-  background-color: #f3f2f3; /* Fallback color */
-  background-size: cover; /* Cover the entire viewport */
-  background-position: center; /* Center the image */
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
 
-header {
-  text-align: center;
+.chat-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#messages {
-  padding-bottom: 30%;
+.messages {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
-li {
-  list-style-type: none;
-  margin-bottom: 10px;
-  background-color: #6929ca;
-  padding: 5px;
-  border-radius: 10px;
-  color: white;
-  width: 50%;
-}
-
-li span {
-  font-style: italic;
-  font-weight: bolder;
-  color: #b5b0b9;
-}
-
-#chat {
-  width: 80%;
-  margin: auto;
-}
-
-#message-form {
-  text-align: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #b7b5b9;
-}
-
-input {
-  width: 70%;
-  height: 30px;
-}
-
-button {
-  width: 25%;
-  height: 38px;
+.message {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    max-width: 70%;
 }
 
 .sent {
-  text-align: right;
-  background-color: #a79cb3;
-  margin-left: 50%;
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
 }
 
-.sent span {
-  margin-left: 5px;
-  color: #6929ca;
+.received {
+    background-color: #f1f1f1;
+    align-self: flex-start;
 }
 
-/* New styles for the YouTube player */
-#video {
-  position: fixed; /* Fix the position */
-  top: 20px; /* Distance from the top */
-  left: 20px; /* Distance from the left */
-  width: 320px; /* Adjust width as needed */
-  height: 180px; /* Adjust height as needed */
-  z-index: 100; /* Ensure it's on top */
+input[type="text"] {
+    width: calc(100% - 100px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
 }
 
-#controls {
-  position: fixed; /* Fixed position for controls */
-  top: 220px; /* Adjust this to position below the video */
-  left: 20px; /* Align controls with video */
-  width: 320px; /* Same width as the video */
-  text-align: center; /* Center the buttons */
-  z-index: 100; /* Ensure it's on top */
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
 }
 
-#controls input {
-  width: 70%;
-  margin: 10px 0; /* Add margin for spacing */
-}
-
-#controls button {
-  width: 25%;
-  height: 40px; /* Adjust button height */
-  margin: 5px; /* Space between buttons */
+button:hover {
+    background-color: #0056b3;
 }
