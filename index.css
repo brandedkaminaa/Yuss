@@ -1,4 +1,4 @@
-body { background-image: url('https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/girl-2013447_1280.webp'); /* Background image */ 
+7body { background-image: url('https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/girl-2013447_1280.webp'); /* Background image */ 
       background-color: #f3f2f3; /* Fallback color */ 
       background-size: cover; /* Cover the entire viewport */ 
       background-position: center; /* Center the image */ 
@@ -70,18 +70,3 @@ button {
   vertical-align: middle; /* Align the image with the text */
   margin-left: 5px; /* Space between username and image */
 }
-
-.delete-btn {
-  background-color: #ff4d4d; /* Red background */
-  color: white; /* White text */
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  margin-left: 10px; /* Space between message and button */
-  cursor: pointer;
-}
-
-.delete-btn:hover {
-  background-color: #ff1a1a; /* Darker red on hover */
-}
-
