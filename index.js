@@ -99,9 +99,9 @@ function openPopup(videoId) {
   const iframe = document.getElementById("popup-iframe");
   iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
   // Set specific dimensions for the popup 
-  popup.style.width = "100px"; 
+  popup.style.width = "200px"; 
   // Set width 
-  popup.style.height = "100px"; 
+  popup.style.height = "200px"; 
   // Set height 
   popup.classList.remove("hidden");
 }
