@@ -22,8 +22,14 @@
               <!-- Clear History Button -->
         <button id="clear-history-btn" onclick="clearChatHistory()">Clear Chat History</button>
       </form>
-
     </div>
+   
+    <!-- Popup for YouTube video -->
+   <div id="popup" class="popup hidden">
+   <div id="drag-handle" class="drag-handle">♡</div> <!-- Drag button -->
+       <iframe id="popup-iframe" src="" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+       <button id="close-popup" onclick="closePopup()">Close</button>
+   </div>
 
     <!-- scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
