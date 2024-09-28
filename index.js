@@ -9,46 +9,63 @@ const firebaseConfig = {
     appId: "1:194813539682:web:f5260ae96cde439c0f683b",
     measurementId: "G-HG982T31BL"
 };
-
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-const messagesRef = database.ref('messages');
-const messagesDiv = document.getElementById('messages');
-const messageInput = document.getElementById('messageInput');
-const sendButton = document.getElementById('sendButton');
-const usernameInput = document.getElementById('usernameInput');
+const username = prompt("Please Tell Us Your Name");
 
-// Listen for new messages
-messagesRef.on('child_added', (data) => {
-    const message = data.val();
-    displayMessage(message);
+function sendMessage(e) {
+  e.preventDefault();
+
+  // Get values to be submitted
+  const timestamp = Date.now();
+  const messageInput = document.getElementById("message-input");
+  const message = messageInput.value;
+
+  // Clear the input box
+  messageInput.value = "";
+
+  // Auto-scroll to the bottom
+  document.getElementById("messages").scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+    inline: "nearest",
+  });
+
+  // Create db collection and send the data
+  db.ref("messages/" + timestamp).set({
+    username,
+    message,
+  }).then(() => {
+    limitMessages(); // Call the function to limit messages after sending a new one
+  });
+}
+
+// Fetch chat messages
+const fetchChat = db.ref("messages/");
+
+fetchChat.on("child_added", function (snapshot) {
+  const messages = snapshot.val();
+  const message = `<li class=${username === messages.username ? "sent" : "receive"}><span>${messages.username}: </span>${messages.message}</li>`;
+
+  // Append the message to the page
+  document.getElementById("messages").innerHTML += message;
 });
 
-// Send message on button click
-sendButton.addEventListener('click', () => {
-    const messageText = messageInput.value;
-    const username = usernameInput.value || "Anonymous"; // Default to Anonymous if no username provided
-    if (messageText) {
-        messagesRef.push({ text: messageText, username: username });
-        messageInput.value = ''; // Clear input
-    }
-});
-
-// Function to display message
-function displayMessage(message) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message');
+// Function to limit messages to the last 10
+function limitMessages() {
+  const messagesRef = db.ref("messages");
+  messagesRef.once("value", (snapshot) => {
+    const messages = snapshot.val();
+    const messageKeys = Object.keys(messages);
     
-    // Check if the message is sent by the current user
-    if (message.username === usernameInput.value) {
-        messageElement.classList.add('sent');
-    } else {
-        messageElement.classList.add('received');
+    // If there are more than 10 messages, delete the oldest ones
+    if (messageKeys.length > 10) {
+      const keysToDelete = messageKeys.sort().slice(0, messageKeys.length - 10);
+      keysToDelete.forEach(key => {
+        messagesRef.child(key).remove();
+      });
     }
-    
-    messageElement.textContent = `${message.username}: ${message.text}`;
-    messagesDiv.appendChild(messageElement);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to bottom
+  });
 }
