@@ -1,9 +1,5 @@
 body {
-  background-image: url('https://github.com/brandedkaminaa/Yuss/blob/main/');
-'); /* Add your image URL here */
-  background-color: #f3f2f3; /* Fallback color */
-  background-size: cover; /* Cover the entire viewport */
-  background-position: center; /* Center the image */
+  background-color: #f3f2f3;
   margin: 0;
   padding: 0;
 }
@@ -60,9 +56,4 @@ button {
   text-align: right;
   background-color: #a79cb3;
   margin-left: 50%;
-}
-
-.sent span {
-  margin-left: 5px;
-  color: #6929ca;
 }
