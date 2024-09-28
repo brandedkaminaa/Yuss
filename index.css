@@ -14,14 +14,15 @@ header {
   padding-bottom: 30%;
 }
 
-li {
-  list-style-type: none;
-  margin-bottom: 10px;
-  background-color: #6929ca;
-  padding: 5px;
-  border-radius: 10px;
-  color: white;
-  width: 50%;
+li::before { 
+      content: ""; 
+      positimages (31).jpegion: absolute; 
+      left: 0; 
+      top: 0; 
+      width: 20px; /* Width of your custom bullet (emoji size) */ 
+      height: 20px; /* Height of your custom bullet */ 
+      background-image: url('https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/images (31).jpeg'); /* Path to your image */ 
+      background-size: cover; /* Make sure the image covers the entire area */ 
 }
 
 li span {
