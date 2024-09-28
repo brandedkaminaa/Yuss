@@ -41,11 +41,14 @@ function sendMessage(e) {
 }
 
 // Fetch chat messages
-const fetchChat = db.ref("messages/");
+const messageLimit = 10; // Limit the number of messages to display
+let messageCount = 0; // Counter for messages
 
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  const verifiedImagePath = "https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/images (31).jpeg"; // Replace with your image path
+  const messageKey = snapshot.key; // Get the unique key for the message
+  const verifiedImagePath = "path/to/your/verified-image.png"; // Replace with your image path
+  
   const message = `<li class=${username === messages.username ? "sent" : "receive"}>
                     <span>
                       ${messages.username}
@@ -55,5 +58,14 @@ fetchChat.on("child_added", function (snapshot) {
   
   // Append the message to the page
   document.getElementById("messages").innerHTML += message;
-});
+  messageCount++;
 
+  // Check if the number of messages exceeds the limit
+  if (messageCount > messageLimit) {
+    // Get the first message (oldest)
+    const firstMessageKey = document.getElementById("messages").firstChild.dataset.key; // Use data-key attribute
+    deleteMessage(firstMessageKey); // Delete the message from the database
+    document.getElementById("messages").firstChild.remove(); // Remove the message from the page
+    messageCount--; // Decrease the message count
+  }
+});
