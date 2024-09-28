@@ -37,8 +37,6 @@ function sendMessage(e) {
   db.ref("messages/" + timestamp).set({
     username,
     message,
-  }).then(() => {
-    limitMessages(); // Call the function to limit messages after sending a new one
   });
 }
 
@@ -47,25 +45,10 @@ const fetchChat = db.ref("messages/");
 
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  const message = `<li class=${username === messages.username ? "sent" : "receive"}><span>${messages.username}: </span>${messages.message}</li>`;
+  const message = `<li class=${
+    username === messages.username ? "sent" : "receive"
+  }><span>${messages.username}: </span>${messages.message}</li>`;
 
   // Append the message to the page
   document.getElementById("messages").innerHTML += message;
 });
-
-// Function to limit messages to the last 10
-function limitMessages() {
-  const messagesRef = db.ref("messages");
-  messagesRef.once("value", (snapshot) => {
-    const messages = snapshot.val();
-    const messageKeys = Object.keys(messages);
-    
-    // If there are more than 10 messages, delete the oldest ones
-    if (messageKeys.length > 10) {
-      const keysToDelete = messageKeys.sort().slice(0, messageKeys.length - 10);
-      keysToDelete.forEach(key => {
-        messagesRef.child(key).remove();
-      });
-    }
-  });
-}
