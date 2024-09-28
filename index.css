@@ -1,5 +1,9 @@
 body {
-  background-color: #f3f2f3;
+  background-image: url('https://github.com/brandedkaminaa/Yuss/blob/main/girl-2013447_1280.webp');
+ /* Add your image URL here */
+  background-color: #f3f2f3; /* Fallback color */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
   margin: 0;
   padding: 0;
 }
@@ -56,4 +60,9 @@ button {
   text-align: right;
   background-color: #a79cb3;
   margin-left: 50%;
+}
+
+.sent span {
+  margin-left: 5px;
+  color: #6929ca;
 }
