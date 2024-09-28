@@ -40,6 +40,17 @@ function sendMessage(e) {
   });
 }
 
+function deleteMessage(messageKey) {
+  db.ref("messages/" + messageKey).remove()
+    .then(() => {
+      console.log("Message deleted successfully.");
+    })
+    .catch((error) => {
+      console.error("Error deleting message: ", error);
+    });
+}
+
+
 // Fetch chat messages
 const fetchChat = db.ref("messages/");
 
