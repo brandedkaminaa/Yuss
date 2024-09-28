@@ -12,6 +12,10 @@
         <input type="text" id="username" placeholder="Your username" required>
         <button onclick="enterChat()">Continue</button>
     </div>
+    <div id="chat-box" style="height: 300px; overflow-y: auto;">
+        <input type="text" id="chat-input" placeholder="Type your message">
+        <button onclick="sendMessage()">Send</button>
+    </div>
 
     <script>
         function enterChat() {
