@@ -41,54 +41,19 @@ function sendMessage(e) {
 }
 
 // Fetch chat messages
+// Fetch chat messages
 const fetchChat = db.ref("messages/");
-const messageLimit = 10; // Limit for the number of messages to display
 
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  const messageKey = snapshot.key; // Get the unique key for the message
-  const verifiedImagePath = "path/to/your/verified-image.png"; // Replace with your image path
-
-  const messageHTML = `<li class=${username === messages.username ? "sent" : "receive"} data-key="${messageKey}">
-                        <span>
-                          ${messages.username}
-                          <img src="${verifiedImagePath}" alt="Verified" class="verified-icon" />
-                        </span>: ${messages.message}
-                      </li>`;
+  const verifiedImagePath = "https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/images (31).jpeg"; // Replace with your image path
+  const message = `<li class=${username === messages.username ? "sent" : "receive"}>
+                    <span>
+                      ${messages.username}
+                      <img src="${verifiedImagePath}" alt="Verified" class="verified-icon" />
+                    </span>: ${messages.message}
+                  </li>`;
   
   // Append the message to the page
-  document.getElementById("messages").innerHTML += messageHTML;
-
-  // Check the number of messages and delete the oldest if necessary
-  fetchChat.once("value", (snapshot) => {
-    const messageCount = snapshot.numChildren(); // Get the total number of messages
-
-    if (messageCount > messageLimit) {
-      // Get the oldest message's key (first child in the snapshot)
-      let oldestKey;
-      snapshot.forEach((childSnapshot) => {
-        oldestKey = childSnapshot.key; // This will hold the key of the first message
-      });
-
-      // Delete the oldest message from Firebase
-      deleteMessage(oldestKey);
-      
-      // Remove the oldest message from the display (the first child)
-      const firstChild = document.getElementById("messages").firstChild;
-      if (firstChild) {
-        firstChild.remove();
-      }
-    }
-  });
+  document.getElementById("messages").innerHTML += message;
 });
-
-// Ensure you still have the deleteMessage function
-function deleteMessage(messageKey) {
-  db.ref("messages/" + messageKey).remove()
-    .then(() => {
-      console.log("Message deleted successfully.");
-    })
-    .catch((error) => {
-      console.error("Error deleting message: ", error);
-    });
-}
