@@ -15,46 +15,53 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const chatRef = database.ref('chats');
+const chatBox = document.getElementById('chat-box');
+const username = localStorage.getItem('username');
 
+// Function to send a message
 function sendMessage() {
     const input = document.getElementById('chat-input');
     const message = input.value.trim();
-    const username = localStorage.getItem('username');
+    
     if (message) {
-        // Add the message to the chat box immediately
-        addMessageToChatBox(username, message);
-
-        // Save the message to Firebase
+        // Add the message to Firebase with a timestamp
         chatRef.push({
-            username,
-            message
+            username: username,
+            message: message,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
         });
 
-        // Clear the input field
+        // Clear input field
         input.value = '';
     }
 }
 
-// Listen for new messages from Firebase and update chat
-chatRef.on('child_added', snapshot => {
+// Retrieve the last 500 messages from Firebase and listen for new ones
+chatRef.limitToLast(500).on('child_added', snapshot => {
     const data = snapshot.val();
     addMessageToChatBox(data.username, data.message);
+    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat
+});
 
-    // Handle play/stop commands
-    if (data.message.startsWith('/play ')) {
-        const url = data.message.split('/play ')[1];
-        playSong(url);
-    } else if (data.message === '/stop') {
-        stopSong();
+// Automatically delete messages if the count exceeds 500
+chatRef.on('value', snapshot => {
+    if (snapshot.numChildren() > 500) {
+        let messageList = snapshot.val();
+        let oldestMessage = Object.keys(messageList)[0]; // Get the key of the oldest message
+
+        // Delete the oldest message
+        chatRef.child(oldestMessage).remove();
     }
 });
 
+// Function to display message in the chat box
 function addMessageToChatBox(username, message) {
     const newMessage = document.createElement('div');
     newMessage.textContent = `${username}: ${message}`;
     chatBox.appendChild(newMessage);
-    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
+
 
 function playSong(url) {
     const videoId = url.split('v=')[1];
