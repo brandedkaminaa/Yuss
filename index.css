@@ -92,8 +92,8 @@ button {
   position: absolute; /* Change to absolute to make it movable */
   top: 10%;
   left: 50%;
-  width: 80%;
-  height: 60%;
+  width: 100px;
+  height: 100px;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1000;
   display: flex;
