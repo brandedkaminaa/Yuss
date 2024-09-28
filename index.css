@@ -1,12 +1,10 @@
-body {
-  background-image: url('https://github.com/brandedkaminaa/Yuss/blob/main/girl-2013447_1280.webp?raw=true');
- /* Add your image URL here */
-  background-color: #f3f2f3; /* Fallback color */
-  background-size: cover; /* Cover the entire viewport */
-  background-position: center; /* Center the image */
-  margin: 0;
-  padding: 0;
-}
+body { background-image: url('https://raw.githubusercontent.com/brandedkaminaa/hi/main/girl-2013447_1280.webp'); /* Background image */ 
+      background-color: #f3f2f3; /* Fallback color */ 
+      background-size: cover; /* Cover the entire viewport */ 
+      background-position: center; /* Center the image */ 
+      margin: 0; 
+      padding: 0; 
+     }
 
 header {
   text-align: center;
