@@ -1,4 +1,4 @@
-const socket = io(); // Assuming you're using Socket.io for real-time communication
+const socket = io();
 const username = localStorage.getItem('username');
 const chatBox = document.getElementById('chat-box');
 const player = document.getElementById('youtube-player');
@@ -7,19 +7,23 @@ function sendMessage() {
     const input = document.getElementById('chat-input');
     const message = input.value.trim();
     if (message) {
+        // Display the message in the chat box immediately
+        addMessageToChatBox(username, message);
+
+        // Send the message to the server
         socket.emit('message', { username, message });
+        
+        // Clear the input field
         input.value = '';
     }
 }
 
+// Listen for incoming messages and update chat
 socket.on('message', data => {
     const { username, message } = data;
-    const newMessage = document.createElement('div');
-    newMessage.textContent = `${username}: ${message}`;
-    chatBox.appendChild(newMessage);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    addMessageToChatBox(username, message);
 
-    // Handle commands
+    // Handle play/stop commands
     if (message.startsWith('/play ')) {
         const url = message.split('/play ')[1];
         playSong(url);
@@ -27,6 +31,13 @@ socket.on('message', data => {
         stopSong();
     }
 });
+
+function addMessageToChatBox(username, message) {
+    const newMessage = document.createElement('div');
+    newMessage.textContent = `${username}: ${message}`;
+    chatBox.appendChild(newMessage);
+    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat
+}
 
 function playSong(url) {
     const videoId = url.split('v=')[1];
