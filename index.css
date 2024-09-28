@@ -1,29 +1,37 @@
 body {
-  background-image: url('https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/girl-2013447_1280.webp'); /* Background image */ 
-  background-color: #f3f2f3; /* Fallback color */ 
-  background-size: cover; /* Cover the entire viewport */ 
-  background-position: center; /* Center the image */ 
-  margin: 0; 
-  padding: 0; 
+  background-image: url('https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/girl-2013447_1280.webp');
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh; /* Fix height to viewport */
+  overflow: hidden; /* Prevent scrolling of the entire page */
 }
 
 header {
   text-align: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 #messages {
-  padding-bottom: 30%;
+  list-style-type: none;
+  padding: 10px;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: scroll; /* Enable vertical scrolling */
+  max-height: 100%; /* Prevent overflow */
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
-li {
-  list-style-type: none; 
+li { 
   margin-bottom: 10px; 
-  background-color: #6929ca; 
   padding: 5px; 
   border-radius: 10px; 
-  color: white; 
-  width: 50%; 
-}
+  background-color: #6929ca; 
+  color: white; width: 50%; 
+} 
 
 li span {
   font-style: italic;
@@ -34,6 +42,10 @@ li span {
 #chat {
   width: 80%;
   margin: auto;
+  height: calc(100vh - 150px); /* Deduct header and form heights */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #message-form {
@@ -42,7 +54,9 @@ li span {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #D4D3D5;
+  background-color: #d4d3d5;
+  padding: 10px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect for the form */
 }
 
 input {
@@ -99,6 +113,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none; /* Remove the border */
   padding: 20px;
   transform: translateX(-50%);
 }
@@ -106,6 +121,7 @@ button {
 .popup iframe {
   width: 100%;
   height: 100%;
+  border: none;
 }
 
 .hidden {
