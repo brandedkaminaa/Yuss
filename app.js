@@ -14,13 +14,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const chatRef = database.ref('chats');
+// app.js
+
 const chatBox = document.getElementById('chat-box');
 const messageInput = document.getElementById('message-box');
 
 // Function to send a message
 function sendMessage() {
   const message = messageInput.value.trim();
-  const username = localStorage.getItem('username') || 'Anonymous'; // Get stored username
+  const username = localStorage.getItem('username') || 'Anonymous'; // Get stored username or use 'Anonymous'
 
   if (message) {
     // Push message to Firebase
@@ -35,19 +37,10 @@ function sendMessage() {
   }
 }
 
-// Listen for new messages from Firebase and update the chat box
-chatRef.limitToLast(500).on('child_added', snapshot => {
+// Listen for new messages and display them in the chat box
+chatRef.on('child_added', snapshot => {
   const data = snapshot.val();
   displayMessage(data.username, data.message);
-});
-
-// Auto-delete older messages when the count exceeds 500
-chatRef.on('value', snapshot => {
-  if (snapshot.numChildren() > 500) {
-    const messageList = snapshot.val();
-    const oldestMessageKey = Object.keys(messageList)[0]; // Find the oldest message by key
-    chatRef.child(oldestMessageKey).remove(); // Delete the oldest message
-  }
 });
 
 // Function to display message in the chat box
@@ -58,5 +51,5 @@ function displayMessage(username, message) {
   messageElement.textContent = `${username}: ${message}`;
 
   chatBox.appendChild(messageElement);
-  chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat
+  chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the bottom
 }
