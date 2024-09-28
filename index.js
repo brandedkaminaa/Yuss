@@ -57,6 +57,8 @@ function detectYouTubeLink(message) {
   return youtubeThumbnails || null;
 }
 
+// Store the maximum number of visible messages 
+const MAX_VISIBLE_MESSAGES = 15;
 // Fetch and display messages from Firebase
 db.ref("messages").on("child_added", function (snapshot) {
   const messages = snapshot.val();
@@ -76,9 +78,18 @@ db.ref("messages").on("child_added", function (snapshot) {
                     </span>: ${messageContent}
                   </li>`;
   
-  document.getElementById("messages").innerHTML += message;
-// Auto-scroll to the bottom of the messages
   const messagesContainer = document.getElementById("messages");
+  
+  // Append the new message
+  messagesContainer.innerHTML += message;
+
+  // Check if the number of messages exceeds the maximum visible limit
+  if (messagesContainer.childElementCount > MAX_VISIBLE_MESSAGES) {
+    // Remove the oldest message (first child) to maintain the limit
+    messagesContainer.removeChild(messagesContainer.firstElementChild);
+  }
+
+  // Auto-scroll to the bottom of the messages
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
 
