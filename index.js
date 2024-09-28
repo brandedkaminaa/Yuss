@@ -45,15 +45,17 @@ const fetchChat = db.ref("messages/");
 
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  const verifiedImagePath = "https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/images (31).jpeg"; // Replace with your image path
+  const messageKey = snapshot.key; // Get the unique key for the message
+  const verifiedImagePath = "path/to/your/verified-image.png"; // Replace with your image path
+  
   const message = `<li class=${username === messages.username ? "sent" : "receive"}>
                     <span>
                       ${messages.username}
                       <img src="${verifiedImagePath}" alt="Verified" class="verified-icon" />
                     </span>: ${messages.message}
+                    ${username === messages.username ? `<button onclick="deleteMessage('${messageKey}')" class="delete-btn">Delete</button>` : ""}
                   </li>`;
   
   // Append the message to the page
   document.getElementById("messages").innerHTML += message;
 });
-
