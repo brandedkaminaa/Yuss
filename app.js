@@ -1,4 +1,4 @@
-// Firebase configuration
+// Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCphoH9_NPxSzgnh6kjXvPTlQdHOGkFGgQ",
   authDomain: "simple-project-de502.firebaseapp.com",
@@ -10,70 +10,53 @@ const firebaseConfig = {
   measurementId: "G-HG982T31BL"
 };
 
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const chatRef = database.ref('chats');
 const chatBox = document.getElementById('chat-box');
-const username = localStorage.getItem('username');
+const messageInput = document.getElementById('message-box');
 
 // Function to send a message
 function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const message = input.value.trim();
-    
-    if (message) {
-        // Add the message to Firebase with a timestamp
-        chatRef.push({
-            username: username,
-            message: message,
-            timestamp: firebase.database.ServerValue.TIMESTAMP
-        });
+  const message = messageInput.value.trim();
+  const username = localStorage.getItem('username') || 'Anonymous'; // Get stored username
 
-        // Clear input field
-        input.value = '';
-    }
+  if (message) {
+    // Push message to Firebase
+    chatRef.push({
+      username: username,
+      message: message,
+      timestamp: Date.now()
+    });
+
+    // Clear the input field
+    messageInput.value = '';
+  }
 }
 
-// Retrieve the last 500 messages from Firebase and listen for new ones
+// Listen for new messages from Firebase and update the chat box
 chatRef.limitToLast(500).on('child_added', snapshot => {
-    const data = snapshot.val();
-    addMessageToChatBox(data.username, data.message);
-    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat
+  const data = snapshot.val();
+  displayMessage(data.username, data.message);
 });
 
-// Automatically delete messages if the count exceeds 500
+// Auto-delete older messages when the count exceeds 500
 chatRef.on('value', snapshot => {
-    if (snapshot.numChildren() > 500) {
-        let messageList = snapshot.val();
-        let oldestMessage = Object.keys(messageList)[0]; // Get the key of the oldest message
-
-        // Delete the oldest message
-        chatRef.child(oldestMessage).remove();
-    }
+  if (snapshot.numChildren() > 500) {
+    const messageList = snapshot.val();
+    const oldestMessageKey = Object.keys(messageList)[0]; // Find the oldest message by key
+    chatRef.child(oldestMessageKey).remove(); // Delete the oldest message
+  }
 });
 
 // Function to display message in the chat box
-function addMessageToChatBox(username, message) {
-    const newMessage = document.createElement('div');
-    newMessage.textContent = `${username}: ${message}`;
-    chatBox.appendChild(newMessage);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+function displayMessage(username, message) {
+  const messageElement = document.createElement('div');
+  messageElement.classList.add('message');
+  messageElement.classList.add(username === localStorage.getItem('username') ? 'user' : 'others');
+  messageElement.textContent = `${username}: ${message}`;
 
-
-function playSong(url) {
-    const videoId = url.split('v=')[1];
-    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    player.style.width = '560px';
-    player.style.height = '315px';
-    document.querySelector('.player-container').style.display = 'block';
-}
-
-function stopSong() {
-    player.src = '';
-    player.style.width = '0';
-    player.style.height = '0';
-    document.querySelector('.player-container').style.display = 'none';
+  chatBox.appendChild(messageElement);
+  chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat
 }
