@@ -71,3 +71,17 @@ button {
   margin-left: 5px; /* Space between username and image */
 }
 
+.delete-btn {
+  background-color: #ff4d4d; /* Red background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 10px; /* Space between message and button */
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+}
+
