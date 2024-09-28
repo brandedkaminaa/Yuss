@@ -39,7 +39,24 @@ function sendMessage(e) {
     message,
   });
 }
-
+// Function to clear chat history from Firebase and the frontend
+function clearChatHistory() {
+    if (confirm("Are you sure you want to clear the chat history? This cannot be undone.")) {
+        // Clear messages from Firebase
+        messagesRef.remove()
+            .then(() => {
+                console.log("Chat history cleared from Firebase.");
+                // Clear messages from the frontend
+                const messagesList = document.getElementById('messages');
+                while (messagesList.firstChild) {
+                    messagesList.removeChild(messagesList.firstChild);
+                }
+            })
+            .catch((error) => {
+                console.error("Error clearing chat history: ", error);
+  });
+}
+                   
 // Fetch chat messages
 // Fetch chat messages
 const fetchChat = db.ref("messages/");
