@@ -20,9 +20,10 @@ header {
   padding: 10px;
   margin: 0;
   flex-grow: 1;
-  overflow-y: scroll; /* Enable vertical scrolling */
-  max-height: 100%; /* Prevent overflow */
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: calc(100vh - 220px); /* Adjust to ensure visibility above the input box */
   background-color: rgba(255, 255, 255, 0.5);
+  scroll-behavior: smooth; /* Smooth scrolling for better UX */
 }
 
 li { 
@@ -30,7 +31,8 @@ li {
   padding: 5px; 
   border-radius: 10px; 
   background-color: #6929ca; 
-  color: white; width: 50%; 
+  color: white; 
+  width: 50%; 
 } 
 
 li span {
@@ -45,9 +47,8 @@ li span {
   height: calc(100vh - 150px); /* Deduct header and form heights */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start; /* Keep the messages at the top */
 }
-
 #message-form {
   text-align: center;
   position: fixed;
