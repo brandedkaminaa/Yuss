@@ -77,6 +77,9 @@ db.ref("messages").on("child_added", function (snapshot) {
                   </li>`;
   
   document.getElementById("messages").innerHTML += message;
+// Auto-scroll to the bottom of the messages
+  const messagesContainer = document.getElementById("messages");
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
 
 // Clear chat history
