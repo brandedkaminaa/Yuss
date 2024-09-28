@@ -1,10 +1,11 @@
-body { background-image: url('https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/girl-2013447_1280.webp'); /* Background image */ 
-      background-color: #f3f2f3; /* Fallback color */ 
-      background-size: cover; /* Cover the entire viewport */ 
-      background-position: center; /* Center the image */ 
-      margin: 0; 
-      padding: 0; 
-     }
+body {
+  background-image: url('https://raw.githubusercontent.com/brandedkaminaa/Yuss/main/girl-2013447_1280.webp'); /* Background image */ 
+  background-color: #f3f2f3; /* Fallback color */ 
+  background-size: cover; /* Cover the entire viewport */ 
+  background-position: center; /* Center the image */ 
+  margin: 0; 
+  padding: 0; 
+}
 
 header {
   text-align: center;
@@ -14,14 +15,15 @@ header {
   padding-bottom: 30%;
 }
 
-li { 
-      list-style-type: none; 
-      margin-bottom: 10px; 
-      background-color: #6929ca; 
-      padding: 5px; 
-      border-radius: 10px; 
-      color: white; 
-      width: 50%; }
+li {
+  list-style-type: none; 
+  margin-bottom: 10px; 
+  background-color: #6929ca; 
+  padding: 5px; 
+  border-radius: 10px; 
+  color: white; 
+  width: 50%; 
+}
 
 li span {
   font-style: italic;
@@ -64,9 +66,16 @@ button {
   color: #6929ca;
 }
 
-.verified-icon {
-  width: 20px; /* Set the desired width */
-  height: 20px; /* Set the desired height */
-  vertical-align: middle; /* Align the image with the text */
-  margin-left: 5px; /* Space between username and image */
+#clear-history-btn {
+  background-color: #ff5c5c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#clear-history-btn:hover {
+  background-color: #ff1c1c;
 }
