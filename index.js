@@ -41,6 +41,7 @@ function sendMessage(e) {
 }
 
 // Fetch chat messages
+const fetchChat = db.ref("messages/");
 const messageLimit = 10; // Limit for the number of messages to display
 const messagesRef = db.ref("messages/");
 
